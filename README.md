@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity{
 	private ImageView logo;
 
 	@Override
-    	public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 	}
