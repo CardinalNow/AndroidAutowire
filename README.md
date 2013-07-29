@@ -88,3 +88,11 @@ Performance
 ------
 
 Reflection code While is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
+
+
+## Author / License
+
+Copyright Cardinal Solutions 2013. Licensed under the MIT license.
+<img src="http://www.cardinalsolutions.com/etc/designs/blog/csgblogs/resources/images/logo_footer.png"/>
+
+
