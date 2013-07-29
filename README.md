@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity{
 ### BaseActivity class
 
 ```java
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends Activity {
 
 	@Override
     public void setContentView(int layoutResID) {
