@@ -1,5 +1,6 @@
 Android Autowire
 ======
+
 A library to replace the use of ```findViewById()``` in Android Activity classes with an annotation based approach.
 
 One particularly jarring example of Android boilerplate code is the ```findViewById()``` method.  Every time you want to access an Android view defined in your XML, you need to use this method, often with a typecast.  For large Activities with many views, this can add a lot of code that does nothing but pull variables out of the xml.
@@ -8,17 +9,18 @@ This library will help streamline this process into a more readable format using
 
 The Android Way
 ---------
+
 ```java
 public class MainActivity extends BaseActivity{
 
 	private ImageView logo;
 
 	@Override
-    	public void onCreate(Bundle savedInstanceState){
-        	super.onCreate(savedInstanceState);
-        	setContentView(R.layout.main);
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 
-        	logo = (ImageView) findViewById(R.id.logo);
+    	logo = (ImageView) findViewById(R.id.logo);
 	}
 }
 ```
@@ -36,8 +38,8 @@ public class MainActivity extends BaseActivity{
 
 	@Override
     	public void onCreate(Bundle savedInstanceState){
-        	super.onCreate(savedInstanceState);
-        	setContentView(R.layout.main);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
 	}
 }
 ```
@@ -48,10 +50,10 @@ public class MainActivity extends BaseActivity{
 public class BaseActivity extends FragmentActivity {
 
 	@Override
-    	public void setContentView(int layoutResID) {
-        	super.setContentView(layoutResID);
-        	AndroidAutowire.autowire(this, BaseActivity.class);
-    	}
+    public void setContentView(int layoutResID) {
+    	super.setContentView(layoutResID);
+    	AndroidAutowire.autowire(this, BaseActivity.class);
+    }
 }
 ```
 
@@ -64,6 +66,7 @@ Import the jar into the project classpath.  Make sure your Activities that want 
 
 Features
 ------
+
 * Supports Inheritance of Activities. You can have multiple Activities inheriting views, and every view will be picked up and wired in.
 * As it uses reflection, it will work with private variables
 * Comes with several out of the box ways of specifying IDs allowing for flexibility in naming IDs and implanting the annotations.
@@ -71,6 +74,7 @@ Features
 
 Comparison to Other Libraries
 -------
+
 There are some other open source libraries that accomplish something similar to what Android Autowire hopes to provide
 
 **RoboGuice** is a dependency injection library that can inject views in much the same way.  However, you must extend the Robo* classes, and there may be performance issues. (https://github.com/roboguice/roboguice/wiki)
@@ -82,4 +86,5 @@ The real advantage to this library is ease of use.  There is minimal configurati
 
 Performance
 ------
+
 Reflection code While is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
