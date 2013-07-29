@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity{
 With AndroidAutowire
 ------------
 
-###MainActivity Class
+### MainActivity Class
 
 ```java
 public class MainActivity extends BaseActivity{
@@ -42,7 +42,8 @@ public class MainActivity extends BaseActivity{
 }
 ```
 
-###BaseActivity class
+### BaseActivity class
+
 ```java
 public class BaseActivity extends FragmentActivity {
 
@@ -82,5 +83,3 @@ The real advantage to this library is ease of use.  There is minimal configurati
 Performance
 ------
 Reflection code While is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
-
-
