@@ -104,6 +104,32 @@ public class AndroidAutowire {
 		}
 	}
 	
+	/**
+	 * Gets the layout resource id based on the Activity. This Activity (or a parent activity) must be annotated with the
+	 * {@link AndroidLayout} annotation, or a valid layout id will not be returned.
+	 * @param thisActivity Annotated Activity instance.
+	 * @param the base activity
+	 * @return layout id for the layout of this activity. If no layout resource is found, or if there is 
+	 * no annotation for AndroidLayout present, then 0 is returned.
+	 */
+	public static int getLayoutResourceByAnnotation(Activity thisActivity, Class<?> baseClass) {
+		AndroidLayout layoutAnnotation = thisActivity.getClass().getAnnotation(AndroidLayout.class);
+		Class<?> clazz = thisActivity.getClass();
+		while(layoutAnnotation == null && baseClass.isAssignableFrom(clazz.getSuperclass())){
+			clazz = clazz.getSuperclass();
+			layoutAnnotation = clazz.getAnnotation(AndroidLayout.class);
+		}
+		if(layoutAnnotation == null){
+			return 0;
+		}
+		if(layoutAnnotation.value() != 0){
+			return layoutAnnotation.value();
+		}
+		String className = thisActivity.getClass().getSimpleName();
+		int layoutId = thisActivity.getResources().getIdentifier(className, "layout", thisActivity.getPackageName());
+		return layoutId;
+	}
+	
 	private static void autowireViewsForClass(Activity thisActivity, Class<?> clazz){
 		for (Field field : clazz.getDeclaredFields()){
 			if(!field.isAnnotationPresent(AndroidView.class)){
