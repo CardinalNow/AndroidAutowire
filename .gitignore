@@ -39,7 +39,8 @@ Thumbs.db
 # IDE files #
 #############
 *xcuserdata*
-/gen/**
-/out/**
+source/gen/**
+source/out/**
+source/bin/**
 .classpath
 .project
