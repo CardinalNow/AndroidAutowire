@@ -21,6 +21,7 @@ public abstract class BaseAutowireActivity extends Activity {
 			return;
 		}
 		setContentView(layoutId);
+		AndroidAutowire.loadFieldsFromBundle(savedInstanceState, this, BaseAutowireActivity.class);
 		afterAutowire(savedInstanceState);
 	}
 	
@@ -29,6 +30,12 @@ public abstract class BaseAutowireActivity extends Activity {
 		super.setContentView(layoutResID);
 		//autowire the AndroidView fields
 		AndroidAutowire.autowire(this, BaseAutowireActivity.class);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState){
+		super.onSaveInstanceState(outState);
+		AndroidAutowire.saveFieldsToBundle(outState, this, BaseAutowireActivity.class);
 	}
 	
 	/**

@@ -1,8 +1,11 @@
 package com.cardinalsolutions.android.arch.autowire;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -128,6 +131,60 @@ public class AndroidAutowire {
 		String className = thisActivity.getClass().getSimpleName();
 		int layoutId = thisActivity.getResources().getIdentifier(className, "layout", thisActivity.getPackageName());
 		return layoutId;
+	}
+	
+	/**
+	 * Find all the fields (class variables) in the Activity, and that Activity's base classes, that are annotated
+	 * with the {@link SaveInstance} annotation.  These will be put in the Bundle object.
+	 * @param bundle {@link Bundle} to save the Activity's state
+	 * @param thisActivity Activity being saved
+	 * @param baseClass Bass class of the Activity
+	 */
+	public static void saveFieldsToBundle(Bundle bundle, Activity thisActivity, Class<?> baseClass){
+		Class<?> clazz = thisActivity.getClass();
+		while(baseClass.isAssignableFrom(clazz)){
+			for(Field field : clazz.getDeclaredFields()){
+				if(field.isAnnotationPresent(SaveInstance.class)){
+					field.setAccessible(true);
+					try {
+						bundle.putSerializable(clazz.getName() + field.getName(), (Serializable) field.get(thisActivity));
+					} catch (Exception e){
+						//Could not put this field in the bundle.
+						Log.w("AndroidAutowire", "The field \"" + field.getName() + "\" was not added to the bundle");
+					}
+				}
+			}
+			clazz = clazz.getSuperclass();
+		}
+	}
+	
+	/**
+	 * Look through the Activity and the Activity's Base Classes.  Find all fields (member variables)  annotated
+	 * with the {@link SaveInstance} annotation. Get the saved value for these fields from the Bundle, and 
+	 * load the value into the field.
+	 * @param bundle {@link Bundle} with the Activity's saved state.
+	 * @param thisActivity Activity being re-loaded
+	 * @param baseClass Base class of the Activity
+	 */
+	public static void loadFieldsFromBundle(Bundle bundle, Activity thisActivity, Class<?> baseClass){
+		Class<?> clazz = thisActivity.getClass();
+		while(baseClass.isAssignableFrom(clazz)){
+			for(Field field : clazz.getDeclaredFields()){
+				if(field.isAnnotationPresent(SaveInstance.class)){
+					field.setAccessible(true);
+					try {
+						Object fieldVal = bundle.get(clazz.getName() + field.getName());
+						if(fieldVal != null){
+							field.set(thisActivity, fieldVal);							
+						}
+					} catch (Exception e){
+						//Could not get this field from the bundle.
+						Log.w("AndroidAutowire", "The field \"" + field.getName() + "\" was not retrieved from the bundle");
+					}
+				}
+			}
+			clazz = clazz.getSuperclass();
+		}
 	}
 	
 	private static void autowireViewsForClass(Activity thisActivity, Class<?> clazz){
