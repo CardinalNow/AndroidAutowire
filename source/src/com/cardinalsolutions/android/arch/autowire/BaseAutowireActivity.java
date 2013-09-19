@@ -15,13 +15,14 @@ public abstract class BaseAutowireActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		int layoutId = AndroidAutowire.getLayoutResourceByAnnotation(this, BaseAutowireActivity.class);
+		AndroidAutowire.loadFieldsFromBundle(savedInstanceState, this, BaseAutowireActivity.class);
+		
+		int layoutId = AndroidAutowire.getLayoutResourceByAnnotation(this, this, BaseAutowireActivity.class);
 		//If this activity is not annotated with AndroidLayout, do nothing
 		if(layoutId == 0){
 			return;
 		}
 		setContentView(layoutId);
-		AndroidAutowire.loadFieldsFromBundle(savedInstanceState, this, BaseAutowireActivity.class);
 		afterAutowire(savedInstanceState);
 	}
 	
@@ -39,11 +40,9 @@ public abstract class BaseAutowireActivity extends Activity {
 	}
 	
 	/**
-	 * By default this method implementation is empty.
-	 * <br /><br />
 	 * This method will be called after views are autowired by AndroidAutowire
-	 * and after the layout is created. This method will only be called when the
-	 * AndroidLayout annotation is used to load the layout resource for the Activity.
+	 * and after the layout is created. <strong>This method will only be called when the
+	 * {@link AndroidLayout} annotation is used</strong> to load the layout resource for the Activity.
 	 * <br /><br />
 	 * This method can be used as a substitute for {@code onCreate()}, as actually overriding
 	 * {@code onCreate()} is not necessary when this base class does it for you. Activity set up
