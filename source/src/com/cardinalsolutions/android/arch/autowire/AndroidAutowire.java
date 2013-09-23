@@ -170,6 +170,9 @@ public class AndroidAutowire {
 	 * @param baseClass Base class of the Activity/Fragment
 	 */
 	public static void loadFieldsFromBundle(Bundle bundle, Object thisClass, Class<?> baseClass){
+		if(bundle == null){
+			return;
+		}
 		Class<?> clazz = thisClass.getClass();
 		while(baseClass.isAssignableFrom(clazz)){
 			for(Field field : clazz.getDeclaredFields()){
