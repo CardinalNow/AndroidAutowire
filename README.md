@@ -8,7 +8,7 @@ The Android Way
 
 Here are some Examples of Android Boilerplate code that we can make more clear, readable, and easier to use with Annotations.
 
-###findViewById()
+### findViewById()
 
 One particularly jarring example of Android boilerplate code is the ```findViewById()``` method.  Every time you want to access an Android view defined in your XML, you need to use this method, often with a typecast.  For large Activities with many views, this can add a lot of code that does nothing but pull variables out of the xml.
 
@@ -27,11 +27,11 @@ public class MainActivity extends BaseActivity{
 }
 ```
 
-###setContentView()
+### setContentView()
 
 In the code example above, we have the ```setContentView(R.layout.main)``` line.  You need something like this in every Activity class, with the sole purpose of inflating your layout.  It's not a big deal, but it is one extra step you have to go through when creating your Activity classes because it has to be put in exactly the right spot.  It needs to be in ```onCreate()``` before any ```findViewById()``` call.
 
-###Saving Instance State
+### Saving Instance State
 
 A quirk of how the Android operating systems works, Activities can be destroyed at almost anytime to make room for other OS processes.  They are also destroyed and re-created on rotation.  The developer is in charge of saving the Activity's state, making sure the Activity comes back exactly the same way before it was destroyed.
 
@@ -68,7 +68,7 @@ With AndroidAutowire
 This library will help streamline this process into a more readable format using annotations and reflection.  
 
 
-###findViewById()
+### findViewById()
 By annotating a class variable for the View with the ```@AndriodView``` custom annotation, you enable the reflection code to pull the view out of the xml.  The variable name will be the view id, or alternatively, the view id can be specified in the annotation.  The annotation processing occurs in an overridden method of ```setContentView(int layoutResID)``` in the Activity’s base class.
 
 
@@ -101,7 +101,7 @@ public class BaseActivity extends Activity {
 }
 ```
 
-###setContentView()
+### setContentView()
 
 Specifying the layout resource in the onCreate is not difficult, but it can create problems if you forget add the method call, or if you do it out of order.  Instead, use an annotation:
 
@@ -142,11 +142,11 @@ public class BaseActivity extends Activity {
 }
 ```
 
-###Saving Instance State
+### Saving Instance State
 
 All of the reading/writing with the Bundle can be done with reflection.  Simply annotate the instance variable you want to save/load, and the AndroidAutowire library will do the work for you.
 
-####MainActivity Class
+#### MainActivity Class
 
 ```java
 @AndroidLayout(R.layout.main)
@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity{
 }
 ```
 
-####BaseActivity Class
+#### BaseActivity Class
 
 ```java
 public class BaseActivity extends Activity {
@@ -237,7 +237,7 @@ public abstract class BaseFragment extends Fragment {
 Unfortunately, do to fragmentation between the Android Core API and the Support Library, this class is not included with the Jar (whereas BaseAutowireActivity is included).
 
 Custom Views
-------
+--------------
 
 If you are writing a non-trivial Android App, chances are you will need to make your own custom Views at some point.  These views may have subviews.  Again, rather than being forced to use ```findViewById()```, we can use AndroidAutowire and Annotations with the ```AndroidAutowire.autowireView()``` method.
 
