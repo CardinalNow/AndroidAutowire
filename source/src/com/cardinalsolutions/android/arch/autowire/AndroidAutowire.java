@@ -215,6 +215,20 @@ public class AndroidAutowire {
 		}
 	}
 	
+	/**
+	 * Autowire a custom view class. Load the sub views for the custom view using the {@link AndroidView} annotation.
+	 * Inheritance structures are supported.
+	 * @param thisClass This Android View class to be autowired.
+	 * @param baseClass The views parent, allowing inherited views to be autowired, if necessary. If there is no custom
+	 * base class, just use this custom view's class.
+	 * @param context Context
+	 * @throws AndroidAutowireException Indicates that there was an issue autowiring a view to an annotated field. 
+	 * Will not be thrown if required=false on the {@link AndroidView} annotation.
+	 */
+	public static void autowireView(View thisClass, Class<?> baseClass, Context context) throws AndroidAutowireException{
+		autowireFragment(thisClass, baseClass, thisClass, context);
+	}
+	
 	private static void autowireViewsForFragment(Object thisFragment, Class<?> clazz, View contentView, Context context){
 		for (Field field : clazz.getDeclaredFields()){
 			if(!field.isAnnotationPresent(AndroidView.class)){
