@@ -93,6 +93,6 @@ Reflection code is known to be a bit inefficient on Android. However, because th
 ## Author / License
 
 Copyright Cardinal Solutions 2013. Licensed under the MIT license.
-<img src="http://www.cardinalsolutions.com/etc/designs/blog/csgblogs/resources/images/logo_footer.png"/>
+<img src="https://raw.github.com/CardinalNow/NSURLConnection-Debug/master/logo_footer.png"/>
 
 
