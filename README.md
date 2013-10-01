@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity{
 
     	logo = (ImageView) findViewById(R.id.logo);
     	label = (TextView findViewById(R.id.lbl_test_label);
-    	label = (EditText) findViewById(R.id.txt_enter);
+    	enterText = (EditText) findViewById(R.id.txt_enter);
     	
     	label.setText("Hello World");
 	}
