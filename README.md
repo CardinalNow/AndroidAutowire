@@ -5,7 +5,7 @@ A library to replace the use of ```findViewById()``` in Android Activity classes
 
 One particularly jarring example of Android boilerplate code is the ```findViewById()``` method.  Every time you want to access an Android view defined in your XML, you need to use this method, often with a typecast.  For large Activities with many views, this can add a lot of code that does nothing but pull variables out of the xml.
 
-This library will help streamline this process into a more readable format using annotations and reflection.  By annotating a class variable for the View with the ```@AndriodView``` custom annotation, you enable the reflection code to pull the view out of the xml.  The variable name will be the view id, or alternatively, the view id can be specified in the annotation.  The annotation processing occurs in an overridden method of ```setContentView(int layoutResID)``` in the Activity’s base class.
+This library will help streamline this process into a more readable format using annotations and reflection.  By annotating a class variable for the View with the ```@AndroidView``` custom annotation, you enable the reflection code to pull the view out of the xml.  The variable name will be the view id, or alternatively, the view id can be specified in the annotation.  The annotation processing occurs in an overridden method of ```setContentView(int layoutResID)``` in the Activity’s base class.
 
 This repository is referenced in the blog post: http://www.cardinalsolutions.com/cardinal/blog/mobile/2013/09/android_autowirelib.html.
 
