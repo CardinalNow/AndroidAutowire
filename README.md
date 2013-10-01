@@ -97,6 +97,8 @@ There are some other open source libraries that accomplish something similar to 
 
 **Android Annotations** can wire in views by annotation, but the approach they take is quite different.  Android Annotations requires you to use an extra compile step, creating generated Activity classes that must be referenced in the AndroidManifest.xml.  As this approach will create subclasses of your Activity, you cannot use this on private variables.  Additionally, there is much more configuration and initial setup. (https://github.com/excilys/androidannotations/wiki)
 
+**Butter Knife** does the same compile time annotation approach as Android Annotations, but instead of generating a new Activity, they generate a class to pass your activity into. This way, you don't have to deal with generated sub classes, but you still get some of the heavy hitting features like onClick Listeners. (http://jakewharton.github.io/butterknife/)
+
 The real advantage to this "Android Autowire" library is ease of use.  There is minimal configuration in just about every IDE, and little overhead, allowing you to quickly start using these annotations in your new or existing project.  Instead of providing a full feature set, this library concentrates only on Android views, allowing it to fill the gap while still being lightweight.
 
 
