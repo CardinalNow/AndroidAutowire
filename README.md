@@ -16,6 +16,8 @@ The Android Way
 public class MainActivity extends BaseActivity{
 
 	private ImageView logo;
+	private TextView label;
+	private EditText enterText;
 
 	@Override
     public void onCreate(Bundle savedInstanceState){
@@ -23,6 +25,10 @@ public class MainActivity extends BaseActivity{
         setContentView(R.layout.main);
 
     	logo = (ImageView) findViewById(R.id.logo);
+    	label = (TextView findViewById(R.id.lbl_test_label);
+    	label = (EditText) findViewById(R.id.txt_enter);
+    	
+    	label.setText("Hello World");
 	}
 }
 ```
@@ -37,11 +43,19 @@ public class MainActivity extends BaseActivity{
 
 	@AndroidView
 	private ImageView logo;
+	
+	@AndroidView(R.id.lbl_test_label)
+	private TextView label;
+	
+	@AndroidView(R.id.txt_enter);
+	private EditText enterText;
 
 	@Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        label.setText("Hello World");
 	}
 }
 ```
