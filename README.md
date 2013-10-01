@@ -44,10 +44,10 @@ public class MainActivity extends BaseActivity{
 	@AndroidView
 	private ImageView logo;
 	
-	@AndroidView(R.id.lbl_test_label)
+	@AndroidView(resId=R.id.lbl_test_label)
 	private TextView label;
 	
-	@AndroidView(R.id.txt_enter);
+	@AndroidView(resId=R.id.txt_enter);
 	private EditText enterText;
 
 	@Override
