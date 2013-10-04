@@ -107,6 +107,16 @@ Performance
 
 Reflection code is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
 
+Coming Soon
+----------
+
+Then next big update to this library will include several new features:
+
+* Autowire views for Fragments and Custom Views
+* Use annotations to load layout resources
+* Save/Reload instance state from the Bundle with annotations
+
+There are some other features that may be considered, such as onClick by annotation.
 
 ## Author / License
 
