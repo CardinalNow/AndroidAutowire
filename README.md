@@ -183,7 +183,7 @@ public class BaseActivity extends Activity {
 Configuration
 -------
 
-Simply include the jar in your classpath.  The process for including the AndroidAutowire library will be IDE specific, but one the library is included in the project, the methods will all be there for you to use.
+Simply include the jar in your classpath.  The process for including the AndroidAutowire library will be IDE specific, but once the library is included in the project, the methods will all be there for you to use.
 
 You can create your own BaseActivity using the process above, or you can use a provided BaseActivity called ```BaseAutowireActivity```.  That will provide support for all features given above, as well as including a new abstract method that acts as a callback once the autowiring is complete.
 
@@ -286,10 +286,11 @@ The real advantage to this "Android Autowire" library is ease of use.  There is 
 
 
 Performance
-------
+------------
 
 Reflection code is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
 
+The more you use the library, the more you want to keep an eye out for performance hits.  However, I have been using all of the features, from Bundle saving to Fragments, and I have not noticed any type of performance decrease. 
 
 ## Author / License
 
