@@ -101,7 +101,7 @@ public class AndroidAutowire {
 	public static void autowire(Activity thisClass, Class<?> baseClass) throws AndroidAutowireException{
 		Class<?> clazz = thisClass.getClass();
 		autowireViewsForClass(thisClass, clazz);
-		//Do this for all classes in the inheritance chain, until we get to this class
+		//Do this for all classes in the inheritance chain, until we get to the base class
 		while(baseClass.isAssignableFrom(clazz.getSuperclass())){
 			clazz = clazz.getSuperclass();
 			autowireViewsForClass(thisClass, clazz);
@@ -151,7 +151,11 @@ public class AndroidAutowire {
 					field.setAccessible(true);
 					try {
 						bundle.putSerializable(clazz.getName() + field.getName(), (Serializable) field.get(thisClass));
-					} catch (Exception e){
+					} 
+					catch (ClassCastException e){
+						Log.w("AndroidAutowire", "The field \"" + field.getName() + "\" was not saved and may not be Serializable.");
+					}
+					catch (Exception e){
 						//Could not put this field in the bundle.
 						Log.w("AndroidAutowire", "The field \"" + field.getName() + "\" was not added to the bundle");
 					}
@@ -197,7 +201,7 @@ public class AndroidAutowire {
 	 * Autowire views for a fragment.  This method works in as similar way to {@code autowire(Activity thisClass, Class<?> baseClass)}
 	 * but for a Fragment instead of Activity. This will work with both an Android Fragment a Support Library Fragment.
 	 * 
-	 * @param thisClass This fragment class.  The type is Object to work around android backwords compatibility 
+	 * @param thisClass This fragment class.  The type is Object to work around android backwards compatibility 
 	 * with the API, as Fragment can come from the core API or from the support library.
 	 * @param baseClass The Fragment's base class.  Allows inherited views.
 	 * @param contentView The Fragment's main content view
