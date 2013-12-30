@@ -1,7 +1,20 @@
 Android Autowire
 ======
 
-A library to replace some Android boilerplate code with an annotation based approach.
+Using Java Annotations and Reflection, this library will allow you to replace some of annoying boilerplate setup from your Activities, Fragments, and Views with an annotation based approach.
+
+Features
+------
+
+* Supports Inheritance of Activities. You can inherit views from parent Activities, and every view will be picked up and wired in
+* As it uses reflection, it will work with private variables
+* Comes with several out of the box ways of specifying IDs allowing for flexibility in naming IDs and implementing the annotations
+* Provides an optional required field in the annotation, so if an ID is not found, the variable will be skipped without an Exception being thrown
+* Support Annotations for Layout as well as Views
+* Support an Annotation based approach for saving instance state.  This also allows for inheritance.
+* Can be adapted to work with Fragments as well as Activities
+* Can be adapted to work with CustomViews
+
 
 The Android Way
 ---------
@@ -124,7 +137,7 @@ public class MainActivity extends BaseActivity{
 public class BaseActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState(){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         int layoutId = AndroidAutowire.getLayoutResourceByAnnotation(this, this, BaseActivity.class);
 		//If this activity is not annotated with AndroidLayout, do nothing
@@ -167,7 +180,7 @@ public class MainActivity extends BaseActivity{
 public class BaseActivity extends Activity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState(){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         AndroidAutowire.loadFieldsFromBundle(savedInstanceState, this, BaseActivity.class);
     }
@@ -185,7 +198,7 @@ Configuration
 
 Simply include the jar in your classpath.  The process for including the AndroidAutowire library will be IDE specific, but once the library is included in the project, the methods will all be there for you to use.
 
-You can create your own BaseActivity using the process above, or you can use a provided BaseActivity called ```BaseAutowireActivity```.  That will provide support for all features given above, as well as including a new abstract method that acts as a callback once the autowiring is complete.
+You can create your own BaseActivity using the process above, or you can use a provided BaseActivity called ```BaseAutowireActivity```.  That will provide support for all features given above, as well as including a new abstract method that acts as a callback once the autowiring is complete. If you use features like ```BaseAutowireActivity``` and ```@AndroidLayout``` it may not even be necessary to override ```onCreate``` in your Activity class.
 
 Fragments
 ---------
@@ -253,23 +266,11 @@ public class CustomView extends RelativeLayout {
     public CustomView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		LayoutInflater inflater = LayoutInflater.from(context);
-		inflater.inflate(R.layout.drawer_list_item, this);
+		inflater.inflate(R.layout.custome_view, this);
 		AndroidAutowire.autowireView(this, CustomView.class, context);
 	}
 }
 ```
-
-Features
-------
-
-* Supports Inheritance of Activities. You can have multiple Activities inheriting views, and every view will be picked up and wired in.
-* As it uses reflection, it will work with private variables
-* Comes with several out of the box ways of specifying IDs allowing for flexibility in naming IDs and implanting the annotations.
-* Provides an optional required field in the annotation, so if an ID is not found, the variable will be skipped without an Exception being thrown.
-* Support Annotations for Layout as well as Views
-* Support an Annotation based approach for saving instance state.  This also allows for inheritance.
-* Can be adapted to work with Fragments as well as Activities.
-* Can be adapted to work with CustomViews
 
 Comparison to Other Libraries
 -------
@@ -290,7 +291,7 @@ Performance
 
 Reflection code is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
 
-The more you use the library, the more you want to keep an eye out for performance hits.  However, I have been using all of the features, from Bundle saving to Fragments, and I have not noticed any type of performance decrease. 
+The more you use the library, the more you want to keep an eye out for performance hits. Most of this reflection code is going to be done on the main thread, and that is always a risk. However, I have been using all of the features, from loading Serializable objects from the Bundle to finding views inside of Fragments, and I have not noticed any type of performance decrease. In fact, even some very complex Activities have made full use of this reflection code without any issue. My biggest concern would be older devices that I have not tested on, devices that may be slow to begin with.
 
 ## Author / License
 
