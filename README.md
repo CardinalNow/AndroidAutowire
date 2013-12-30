@@ -8,6 +8,8 @@ One particularly jarring example of Android boilerplate code is the ```findViewB
 This library will help streamline this process into a more readable format using annotations and reflection.  By annotating a class variable for the View with the ```@AndroidView``` custom annotation, you enable the reflection code to pull the view out of the xml.  The variable name will be the view id, or alternatively, the view id can be specified in the annotation.  The annotation processing occurs in an overridden method of ```setContentView(int layoutResID)``` in the Activity’s base class.
 
 This repository is referenced in the blog post: http://www.cardinalsolutions.com/cardinal/blog/mobile/2013/09/android_autowirelib.html.
+An updated version of this library is available at https://github.com/CardinalNow/AndroidAutowire.
+
 
 The Android Way
 ---------
