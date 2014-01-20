@@ -18,7 +18,7 @@ public @interface AndroidView {
 	/**
 	 * You may optionally specify the id of the android view.
 	 * If id is not set, assume the name of the field is the id.
-	 * If the {@code resId} is set, this field will be ignored
+	 * If the {@code value} is set, this field will be ignored
 	 * @return id
 	 */
 	String id() default "";
@@ -36,12 +36,12 @@ public @interface AndroidView {
 	/**
 	 * Resource ID for the view. Example: {@code R.id.viewname}
 	 * <br /><br />
-	 * You may optionally specify this id of the android view.  If the resId is set,
+	 * You may optionally specify this id of the android view.  If the value is set,
 	 * this will be used to autowire the field.  If it is not set, the {@code id} variable will
 	 * be used. If the {@code id} is not set, then the name of the field is the id.
 	 * <br /><br />
-	 * Using resId is recommended as it is the most efficient way to autowire the view.
+	 * Using value is recommended as it is the most efficient way to autowire the view.
 	 * @return
 	 */
-	int resId() default 0;
+	int value() default 0;
 }
