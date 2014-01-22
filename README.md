@@ -3,6 +3,8 @@ Android Autowire
 
 Using Java Annotations and Reflection, this library will allow you to replace some of annoying boilerplate setup from your Activities, Fragments, and Views with an annotation based approach.
 
+This repository is referenced in the blog post: http://www.cardinalsolutions.com/cardinal/blog/mobile/2014/01/dealing_with_android.html
+
 Features
 ------
 
