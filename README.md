@@ -50,7 +50,7 @@ In the code example above, we have the ```setContentView(R.layout.main)``` line.
 
 A quirk of how the Android operating systems works, Activities can be destroyed at almost anytime to make room for other OS processes.  They are also destroyed and re-created on rotation.  The developer is in charge of saving the Activity's state, making sure the Activity comes back exactly the same way before it was destroyed.
 
-In the Android way, instance variables that you have to manually story are put into a ```Bundle``` in the ```onSaveInstanceState``` method.  Then they must be pulled out again in the ```onCreate()``` method.
+In the Android way, instance variables that you have to manually store are put into a ```Bundle``` in the ```onSaveInstanceState``` method.  Then they must be pulled out again in the ```onCreate()``` method.
 
 ```java
 public class MainActivity extends BaseActivity{
