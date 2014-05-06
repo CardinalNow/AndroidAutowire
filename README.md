@@ -291,9 +291,17 @@ The real advantage to this "Android Autowire" library is ease of use.  There is 
 Performance
 ------------
 
-Reflection code is known to be a bit inefficient on Android. However, because this library is only looking at a small subset of the Activity fields, only the declared fields in each class extending from your base activity, performance is virtually the same as using ```findViewById()```, even on some sizable activities with plenty of class variables.
-
 The more you use the library, the more you want to keep an eye out for performance hits. Most of this reflection code is going to be done on the main thread, and that is always a risk. However, I have been using all of the features, from loading Serializable objects from the Bundle to finding views inside of Fragments, and I have not noticed any type of performance decrease. In fact, even some very complex Activities have made full use of this reflection code without any issue. My biggest concern would be older devices that I have not tested on, devices that may be slow to begin with.
+
+To illustrate this, I did some benchmarks on an HTC Nexus One running 2.3.4 Gingerbread. The application I used is a fairly complex production Android App. The time is the total time for the reflection to complete, not including the time it takes for the system to start the Activity/Fragment and not including any time to inflate XML layouts.
+
+* Activity with 15 Autowired Views, 2 Save Instance variables, and layout: 4.9ms
+* Activity wiht 1 Autowired View, 0 Save Instance variables, and layout: 0.7ms
+* Fragment with 3 Autowired Views, 4 Save Instance variables, and layout: 6.5ms
+* Fragment with 18 Autowired Views, 6 Save Instance variables, layout, and inheritance: 44.6ms
+* Fragment with 1 Autowired View, 0 Save Instance variables, and layout: 2.0ms
+
+This is hardly a scientific endeavour, but it should give some pretty clear direction as to what the performance impact of using this library would be. Using this library with API level 10 and up seems to be fairly safe, as the most complicated bit of reflection using a Fragment with many views and instance state was still completed in less than 50 milliseconds. 
 
 ## Author / License
 
