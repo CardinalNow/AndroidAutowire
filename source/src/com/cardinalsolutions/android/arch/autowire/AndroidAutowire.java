@@ -263,6 +263,9 @@ public class AndroidAutowire {
 				field.setAccessible(true);
 				field.set(thisFragment,view);
 			} catch (Exception e){
+				if(e instanceof AndroidAutowireException){
+					throw (AndroidAutowireException) e;
+				}
 				throw new AndroidAutowireException("Cound not Autowire AndroidView: " + field.getName() + ". " + e.getMessage());
 			}
 		}
@@ -298,6 +301,9 @@ public class AndroidAutowire {
 				field.setAccessible(true);
 				field.set(thisActivity,view);
 			} catch (Exception e){
+				if(e instanceof AndroidAutowireException){
+					throw (AndroidAutowireException) e;
+				}
 				throw new AndroidAutowireException("Cound not Autowire AndroidView: " + field.getName() + ". " + e.getMessage());
 			}
 		}
