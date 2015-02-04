@@ -295,17 +295,17 @@ The more you use the library, the more you want to keep an eye out for performan
 
 To illustrate this, I did some benchmarks on an HTC Nexus One running 2.3.4 Gingerbread. The application I used is a fairly complex production Android App. The time is the total time for the reflection to complete, not including the time it takes for the system to start the Activity/Fragment and not including any time to inflate XML layouts.
 
-* Activity with 15 Autowired Views, 2 Save Instance variables, and layout: 4.9ms
 * Activity wiht 1 Autowired View, 0 Save Instance variables, and layout: 0.7ms
+* Activity with 15 Autowired Views, 2 Save Instance variables, and layout: 4.9ms
+* Fragment with 1 Autowired View, 0 Save Instance variables, and layout: 2.0ms
 * Fragment with 3 Autowired Views, 4 Save Instance variables, and layout: 6.5ms
 * Fragment with 18 Autowired Views, 6 Save Instance variables, layout, and inheritance: 44.6ms
-* Fragment with 1 Autowired View, 0 Save Instance variables, and layout: 2.0ms
 
 This is hardly a scientific endeavour, but it should give some pretty clear direction as to what the performance impact of using this library would be. Using this library with API level 10 and up seems to be fairly safe, as the most complicated bit of reflection using a Fragment with many views and instance state was still completed in less than 50 milliseconds. 
 
 ## Author / License
 
-Copyright Cardinal Solutions 2013. Licensed under the MIT license.
+Copyright Cardinal Solutions 2015. Licensed under the MIT license.
 <img src="https://raw.github.com/CardinalNow/NSURLConnection-Debug/master/logo_footer.png"/>
 
 
