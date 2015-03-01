@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
@@ -146,18 +147,23 @@ public class AndroidAutowire {
 	public static void saveFieldsToBundle(Bundle bundle, Object thisClass, Class<?> baseClass){
 		Class<?> clazz = thisClass.getClass();
 		while(baseClass.isAssignableFrom(clazz)){
+			String className = clazz.getName();
 			for(Field field : clazz.getDeclaredFields()){
 				if(field.isAnnotationPresent(SaveInstance.class)){
+					String name = field.getName();
 					field.setAccessible(true);
 					try {
-						bundle.putSerializable(clazz.getName() + field.getName(), (Serializable) field.get(thisClass));
+						Object value = field.get(thisClass);
+						String key = className + name;
+						if(value instanceof Serializable){
+							bundle.putSerializable(key, (Serializable) value);
+						}else if(value instanceof Parcelable){
+							bundle.putParcelable(key, (Parcelable) value);
+						}
 					} 
-					catch (ClassCastException e){
-						Log.w("AndroidAutowire", "The field \"" + field.getName() + "\" was not saved and may not be Serializable.");
-					}
 					catch (Exception e){
 						//Could not put this field in the bundle.
-						Log.w("AndroidAutowire", "The field \"" + field.getName() + "\" was not added to the bundle");
+						Log.w("AndroidAutowire", "The field \"" + name + "\" was not added to the bundle");
 					}
 				}
 			}
